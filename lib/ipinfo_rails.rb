@@ -15,15 +15,13 @@ class IPinfoMiddleware
 
     if !@is_bot.nil?
       bot = @is_bot.call(request)
-      puts "is bot custom"
-      puts bot
     else
       bot = default_is_bot(request)
-      puts "is bot default"
-      puts bot
     end
 
-    unless bot
+    if bot
+        env["ipinfo"] = nil
+    else
       ip = request.ip
       env["ipinfo"] = @ipinfo.details(ip)
     end
