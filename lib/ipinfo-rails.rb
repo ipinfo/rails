@@ -7,20 +7,21 @@ class IPinfoMiddleware
 
     token = cache_options.fetch(:token, nil)
     @ipinfo = IPinfo::create(@token, cache_options)
-    @is_bot = cache_options.fetch(:is_bot, nil)
+    @filter = cache_options.fetch(:filter, nil)
   end
 
   def call(env)
+    env["called"] = "yes"
     request = Rack::Request.new(env)
 
-    if !@is_bot.nil?
-      bot = @is_bot.call(request)
+    if !@filter.nil?
+      filtered = @filter.call(request)
     else
-      bot = default_is_bot(request)
+      filtered = is_bot(request)
     end
 
-    if bot
-        env["ipinfo"] = nil
+    if filtered
+      env["ipinfo"] = nil
     else
       ip = request.ip
       env["ipinfo"] = @ipinfo.details(ip)
@@ -30,8 +31,8 @@ class IPinfoMiddleware
   end
 
   private
-    def default_is_bot(request)
+    def is_bot(request)
       user_agent = request.user_agent.downcase
-      user_agent.include?("bot") || user_agent.include?("intel")#("spider")
+      user_agent.include?("bot") || user_agent.include?("spider")
     end
 end
