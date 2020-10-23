@@ -1,5 +1,5 @@
-require 'rack'
-require 'ipinfo'
+require "rack"
+require "ipinfo"
 
 class IPinfoMiddleware
   def initialize(app, cache_options = {})
@@ -23,7 +23,7 @@ class IPinfoMiddleware
     if filtered
       env["ipinfo"] = nil
     else
-      ip = request.ip
+      ip = request.env["HTTP_X_FORWARDED_FOR"] || req.ip
       env["ipinfo"] = @ipinfo.details(ip)
     end
 
@@ -31,8 +31,9 @@ class IPinfoMiddleware
   end
 
   private
-    def is_bot(request)
-      user_agent = request.user_agent.downcase
-      user_agent.include?("bot") || user_agent.include?("spider")
-    end
+
+  def is_bot(request)
+    user_agent = request.user_agent.downcase
+    user_agent.include?("bot") || user_agent.include?("spider")
+  end
 end
