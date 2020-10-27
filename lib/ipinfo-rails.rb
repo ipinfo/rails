@@ -4,9 +4,7 @@ require "ipinfo"
 class IPinfoMiddleware
   def initialize(app, cache_options = {})
     @app = app
-
-    token = cache_options.fetch(:token, nil)
-    @ipinfo = IPinfo::create(@token, cache_options)
+    @cache_options = cache_options
     @filter = cache_options.fetch(:filter, nil)
   end
 
@@ -23,8 +21,9 @@ class IPinfoMiddleware
     if filtered
       env["ipinfo"] = nil
     else
-      ip = request.env["HTTP_X_FORWARDED_FOR"] || req.ip
-      env["ipinfo"] = @ipinfo.details(ip)
+      ip = request.env["HTTP_X_FORWARDED_FOR"] || request.ip
+      ipinfo = IPinfo::create(@cache_options.fetch(:token))
+      env["ipinfo"] = ipinfo.details(ip)
     end
 
     @app.call(env)
