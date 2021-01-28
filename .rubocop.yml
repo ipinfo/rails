@@ -1,0 +1,48 @@
+AllCops:
+    TargetRubyVersion: 2.5
+    NewCops: enable
+
+Layout/IndentationWidth:
+    Width: 4
+
+Layout/LineLength:
+    Enabled: true
+    Max: 80
+
+Lint/MissingSuper:
+    Enabled: false
+
+Metrics/MethodLength:
+    Enabled: false
+
+Metrics/AbcSize:
+    Enabled: false
+
+Metrics/ClassLength:
+    Enabled: false
+
+Lint/DuplicateMethods:
+    Enabled: false
+
+Style/Documentation:
+    Enabled: false
+
+Style/ClassAndModuleChildren:
+    Enabled: false
+
+Style/MethodCallWithArgsParentheses:
+    EnforcedStyle: require_parentheses
+    IgnoreMacros: false
+    IgnoredPatterns: []
+    AllowParenthesesInMultilineCall: true
+    AllowParenthesesInChaining: true
+    AllowParenthesesInCamelCaseMethod: true
+
+Style/MethodCallWithoutArgsParentheses:
+    Enabled: false
+
+Naming/FileName:
+    Enabled: false
+
+Naming/PredicateName:
+    Enabled: false
