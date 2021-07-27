@@ -58,6 +58,8 @@ The free plan is limited to 50,000 requests per month, and doesn't include some 
 
 Once configured, `ipinfo-rails` will make IP address data accessible within Rail's `request` object. These values can be accessed at `request.env['ipinfo']`.
 
+> You may want to checkout https://github.com/ipinfo/rails-example which has a sample Rails app demonstrating the IPinfo gem in action.
+
 ## Details Data
 
 `request.env['ipinfo']` is `Response` object that contains all fields listed [IPinfo developer docs](https://ipinfo.io/developers/responses#full-response) with a few minor additions. Properties can be accessed through methods of the same name.
