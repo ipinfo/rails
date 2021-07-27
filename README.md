@@ -42,7 +42,15 @@ The free plan is limited to 50,000 requests per month, and doesn't include some 
     config.middleware.use(IPinfoMiddleware, {token: "<your_token>"})
     ```
 
-    Note: if editing `config/environment.rb`, this needs to come before `Rails.application.initialize!` and with `Rails.application.` prepended to `config`, otherwise you'll get runtime errors.
+    #### Notes
+    > If editing `config/environment.rb`, this needs to come before `Rails.application.initialize!` and with `Rails.application.` prepended to `config`, otherwise you'll get runtime errors.
+
+    > If you are on Heroku and installed our app from the marketplace, your token will be automatically added to your requests, please do not add it in the config. For Heroku, the config should be;
+    
+    ```ruby
+    require 'ipinfo-rails'
+    config.middleware.use(IPinfoMiddleware)
+    ```
 
 1. Restart your development server.
 
