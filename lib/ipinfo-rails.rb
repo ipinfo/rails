@@ -6,28 +6,15 @@ require 'ipinfo'
 class IPinfoMiddleware
     def initialize(app, cache_options = {})
         @app = app
-        @token = cache_options.fetch(:token, nil)
+        @token = cache_options.fetch(:token, nil) || ENV['IPINFO_TOKEN']
         @ipinfo = IPinfo.create(@token, cache_options)
         @filter = cache_options.fetch(:filter, nil)
     end
 
     def call(env)
-        env['called'] = 'yes'
         request = Rack::Request.new(env)
-
-        filtered = if @filter.nil?
-                       is_bot(request)
-                   else
-                       @filter.call(request)
-                   end
-
-        if filtered
-            env['ipinfo'] = nil
-        else
-            ip = request.ip
-            env['ipinfo'] = @ipinfo.details(ip)
-        end
-
+        filtered = @filter.nil? ? is_bot(request) : @filter.call(request)
+        env['ipinfo'] = filtered ? nil : @ipinfo.details(request.env["HTTP_X_FORWARDED_FOR"] || request.ip)
         @app.call(env)
     end
 
