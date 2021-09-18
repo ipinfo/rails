@@ -34,7 +34,11 @@ class IPinfoMiddleware
     private
 
     def is_bot(request)
-        user_agent = request.user_agent.downcase
-        user_agent.include?('bot') || user_agent.include?('spider')
+        if request.user_agent
+            user_agent = request.user_agent.downcase
+            user_agent.include?('bot') || user_agent.include?('spider')
+        else
+            false
+        end
     end
 end
