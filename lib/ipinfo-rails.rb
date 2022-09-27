@@ -10,18 +10,13 @@ class IPinfoMiddleware
         @token = options.fetch(:token, nil)
         @ipinfo = IPinfo.create(@token, options)
         @filter = options.fetch(:filter, nil)
-        @ip_selector = options.fetch(:ip_selector, nil)
+        @ip_selector = options.fetch(:ip_selector, DefaultIPSelector)
     end
 
     def call(env)
         env['called'] = 'yes'
         request = Rack::Request.new(env)
-        ip_selector = if @ip_selector.nil? 
-                        DefaultIPSelector.new(request)
-                      else
-                        @ip_selector.new(request)
-                      end
-
+        ip_selector = @ip_selector.new(request)
         filtered = if @filter.nil?
                        is_bot(request)
                    else

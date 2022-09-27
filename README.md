@@ -122,6 +122,7 @@ request.env['ipinfo'].all ==
 
 ```ruby
 require 'ipinfo-rails/ip_selector/xforwarded_ip_selector'
+
 config.middleware.use(IPinfoMiddleware, {
   token: "<your_token>",
   ttl: "",
@@ -142,14 +143,16 @@ Since the actual desired IP may be something else, the IP selection mechanism is
 
 Here are some built-in mechanisms:
 
-  - [DefaultIPSelector](./lib/ipinfo-rails/ip_selector/default_ip_selector.rb)
-  - [XForwardedIPSelector](./lib/ipinfo-rails/ip_selector/xforwarded_ip_selector.rb)
+- [DefaultIPSelector](./lib/ipinfo-rails/ip_selector/default_ip_selector.rb)
+- [XForwardedIPSelector](./lib/ipinfo-rails/ip_selector/xforwarded_ip_selector.rb)
 
 #### Using a custom IP selector
 
 In case a custom IP selector is required, you may implement the `IPSelectorInterface` and pass the class to `ip_selector` in config.
+
 ```ruby
 require 'custom-package/custom_ip_selector'
+
 config.middleware.use(IPinfoMiddleware, {
   token: "<your_token>",
   ip_selector: CustomIPSelector,
