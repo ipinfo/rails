@@ -121,7 +121,7 @@ request.env['ipinfo'].all ==
  In addition to the steps listed in the Installation section it is possible to configure the library with more detail. The following arguments are allowed and are described in detail below.
 
 ```ruby
-require 'ipinfo-rails/ipselector/xforwarded_ipselector'
+require 'ipinfo-rails/ip_selector/xforwarded_ip_selector'
 config.middleware.use(IPinfoMiddleware, {
   token: "<your_token>",
   ttl: "",
@@ -130,30 +130,31 @@ config.middleware.use(IPinfoMiddleware, {
   http_client: "",
   countries: "",
   filter: "",
-  ipselector: XForwardedIPSelector,
+  ip_selector: XForwardedIPSelector,
 })
 ```
+
 ### IP Selection Mechanism
 
-By default, the IP is used by ignoring the reverse proxies depending on whether we are behind a reverse proxy or not.
+By default, the source IP on the request is used as the input to IP geolocation.
 
-Since the desired IP by your system may be in other locations, the IP selection mechanism is configurable and some alternative built-in options are available.
-Using built-in IP selectors
+Since the actual desired IP may be something else, the IP selection mechanism is configurable.
 
-  - [DefaultIPSelector](./lib/ipinfo-rails/ipselector/default_ipselector.rb)
-  - [XForwardedIPSelector](./lib/ipinfo-rails/ipselector/xforwarded_ipselector.rb)
+Here are some built-in mechanisms:
+
+  - [DefaultIPSelector](./lib/ipinfo-rails/ip_selector/default_ip_selector.rb)
+  - [XForwardedIPSelector](./lib/ipinfo-rails/ip_selector/xforwarded_ip_selector.rb)
 
 #### Using a custom IP selector
 
-In case a custom IP selector is required, you may implement the `IPSelectorInterface` and pass the class to `ipselector` in config.
+In case a custom IP selector is required, you may implement the `IPSelectorInterface` and pass the class to `ip_selector` in config.
 ```ruby
-require 'custom-package/custom_ipselector'
+require 'custom-package/custom_ip_selector'
 config.middleware.use(IPinfoMiddleware, {
   token: "<your_token>",
-  ipselector: CustomIPSelector,
+  ip_selector: CustomIPSelector,
 })
 ```
-
 
 
 ### Authentication

@@ -1,14 +1,14 @@
 # frozen_string_literal: true
-require 'ipinfo-rails/ipselector/ipselector_interface'
+require 'ipinfo-rails/ip_selector/ip_selector_interface'
 
-class XForwardedIPSelector
+class DefaultIPSelector
     include IPSelectorInterface
+
     def initialize(request)
         @request = request
     end
     
     def get_ip()
-        return @request.env['HTTP_X_FORWARDED_FOR']
+        return @request.ip
     end
-
 end

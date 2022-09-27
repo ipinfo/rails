@@ -2,21 +2,21 @@
 
 require 'rack'
 require 'ipinfo'
-require 'ipinfo-rails/ipselector/default_ipselector'
+require 'ipinfo-rails/ip_selector/default_ip_selector'
 
 class IPinfoMiddleware
-    def initialize(app, cache_options = {})
+    def initialize(app, options = {})
         @app = app
-        @token = cache_options.fetch(:token, nil)
-        @ipinfo = IPinfo.create(@token, cache_options)
-        @filter = cache_options.fetch(:filter, nil)
-        @ip_selector = cache_options.fetch(:ip_selector, nil)
+        @token = options.fetch(:token, nil)
+        @ipinfo = IPinfo.create(@token, options)
+        @filter = options.fetch(:filter, nil)
+        @ip_selector = options.fetch(:ip_selector, nil)
     end
 
     def call(env)
         env['called'] = 'yes'
         request = Rack::Request.new(env)
-        ip_selected = if @ip_selector.nil? 
+        ip_selector = if @ip_selector.nil? 
                         DefaultIPSelector.new(request)
                       else
                         @ip_selector.new(request)
@@ -31,7 +31,7 @@ class IPinfoMiddleware
         if filtered
             env['ipinfo'] = nil
         else
-            ip = ip_selected.get_ip()
+            ip = ip_selector.get_ip()
             env['ipinfo'] = @ipinfo.details(ip)
         end
 
