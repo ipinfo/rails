@@ -156,7 +156,6 @@ config.middleware.use(IPinfoMiddleware, {
 })
 ```
 
-
 ### Authentication
 
 The IPinfo library can be authenticated with your IPinfo API token, which is set in the environment file. It also works without an authentication token, but in a more limited capacity.
