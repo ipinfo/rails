@@ -2,19 +2,21 @@
 
 require 'rack'
 require 'ipinfo'
+require 'ipinfo-rails/ip_selector/default_ip_selector'
 
 class IPinfoMiddleware
-    def initialize(app, cache_options = {})
+    def initialize(app, options = {})
         @app = app
-        @token = cache_options.fetch(:token, nil)
-        @ipinfo = IPinfo.create(@token, cache_options)
-        @filter = cache_options.fetch(:filter, nil)
+        @token = options.fetch(:token, nil)
+        @ipinfo = IPinfo.create(@token, options)
+        @filter = options.fetch(:filter, nil)
+        @ip_selector = options.fetch(:ip_selector, DefaultIPSelector)
     end
 
     def call(env)
         env['called'] = 'yes'
         request = Rack::Request.new(env)
-
+        ip_selector = @ip_selector.new(request)
         filtered = if @filter.nil?
                        is_bot(request)
                    else
@@ -24,7 +26,7 @@ class IPinfoMiddleware
         if filtered
             env['ipinfo'] = nil
         else
-            ip = request.ip
+            ip = ip_selector.get_ip()
             env['ipinfo'] = @ipinfo.details(ip)
         end
 
