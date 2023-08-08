@@ -1,9 +1,9 @@
 # <img src="https://ipinfo.io/static/ipinfo-small.svg" alt="IPinfo" width="24"/> IPinfo Rails Client Library
 
-This is the official Rails client library for the IPinfo.io IP address API, allowing you to lookup your own IP address, or get any of the following details for an IP:
+This is the official Rails client library for the IPinfo.io IP address API, allowing you to look up your own IP address, or get any of the following details for an IP:
 
-- [Geolocation](https://ipinfo.io/ip-geolocation-api) (city, region, country, postal code, latitude and longitude)
-- [ASN](https://ipinfo.io/asn-api) (ISP or network operator, associated domain name, and type, such as business, hosting or company)
+- [Geolocation](https://ipinfo.io/ip-geolocation-api) (city, region, country, postal code, latitude, and longitude)
+- [ASN](https://ipinfo.io/asn-api) (ISP or network operator, associated domain name, and type, such as business, hosting, or company)
 - [Company](https://ipinfo.io/ip-company-api) (the name and domain of the business that uses the IP address)
 - [Carrier](https://ipinfo.io/ip-carrier-api) (the name of the mobile carrier and MNC and MCC for that carrier if the IP is used exclusively for mobile traffic)
 
@@ -11,7 +11,7 @@ Check all the data we have for your IP address [here](https://ipinfo.io/what-is-
 
 ## Getting Started
 
-You'll need an IPinfo API access token, which you can get by singing up for a free account at [https://ipinfo.io/signup](https://ipinfo.io/signup).
+You'll need an IPinfo API access token, which you can get by signing up for a free account at [https://ipinfo.io/signup](https://ipinfo.io/signup).
 
 The free plan is limited to 50,000 requests per month, and doesn't include some of the data fields such as IP type and company data. To enable all the data fields and additional request volumes see [https://ipinfo.io/pricing](https://ipinfo.io/pricing)
 
@@ -118,7 +118,7 @@ request.env['ipinfo'].all ==
 
 ## Configuration
 
- In addition to the steps listed in the Installation section it is possible to configure the library with more detail. The following arguments are allowed and are described in detail below.
+ In addition to the steps listed in the Installation section, it is possible to configure the library with more detail. The following arguments are allowed and are described in detail below.
 
 ```ruby
 require 'ipinfo-rails/ip_selector/xforwarded_ip_selector'
@@ -246,7 +246,7 @@ This simple lambda function will filter out requests coming from your local comp
 
 ## Other Libraries
 
-There are official IPinfo client libraries available for many languages including PHP, Go, Java, Ruby, and many popular frameworks such as Django, Rails and Laravel. There are also many third party libraries and integrations available for our API.
+There are official IPinfo client libraries available for many languages including PHP, Go, Java, Ruby, and many popular frameworks such as Django, Rails, and Laravel. There are also many third-party libraries and integrations available for our API.
 
 ## About IPinfo
 
