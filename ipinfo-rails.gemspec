@@ -17,8 +17,8 @@ Gem::Specification.new do |s|
                 'carrier and IP type data sets. You can visit our developer ' \
                 'docs at https://ipinfo.io/developers.'
     s.description = s.summary
-    s.authors = ['James Timmins', 'Uman Shahzad']
-    s.email = ['jameshtimmins@gmail.com', 'uman@mslm.io']
+    s.authors = ['IPinfo releases']
+    s.email = ['releases@ipinfo.io']
     s.homepage = 'https://ipinfo.io'
     s.license = 'Apache-2.0'
 
