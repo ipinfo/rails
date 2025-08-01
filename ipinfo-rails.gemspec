@@ -9,7 +9,6 @@ Gem::Specification.new do |s|
     s.name = 'ipinfo-rails'
     s.version = IPinfoRails::VERSION
     s.required_ruby_version = '>= 2.5.0'
-    s.date = '2018-12-10'
     s.summary = 'The official Rails gem for IPinfo. IPinfo prides itself on ' \
                 'being the most reliable, accurate, and in-depth source of ' \
                 'IP address data available anywhere. We process terabytes ' \
@@ -29,4 +28,7 @@ Gem::Specification.new do |s|
         f.match(%r{^(test|spec|features)/})
     end
     s.require_paths = ['lib']
+    s.metadata = {
+        'rubygems_mfa_required' => 'true'
+    }
 end
