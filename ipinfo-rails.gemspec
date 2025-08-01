@@ -24,6 +24,8 @@ Gem::Specification.new do |s|
     s.add_dependency 'IPinfo', '~> 2.3'
     s.add_dependency 'rack', '~> 2.0'
 
+    s.add_development_dependency 'mocha', '~> 2.7'
+
     s.files = `git ls-files -z`.split("\x0").reject do |f|
         f.match(%r{^(test|spec|features)/})
     end
