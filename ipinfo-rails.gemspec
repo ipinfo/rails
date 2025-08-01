@@ -21,8 +21,8 @@ Gem::Specification.new do |s|
     s.homepage = 'https://ipinfo.io'
     s.license = 'Apache-2.0'
 
-    s.add_runtime_dependency 'IPinfo', '~> 1.0.1'
-    s.add_runtime_dependency 'rack', '~> 2.0'
+    s.add_dependency 'IPinfo', '~> 2.3'
+    s.add_dependency 'rack', '~> 2.0'
 
     s.files = `git ls-files -z`.split("\x0").reject do |f|
         f.match(%r{^(test|spec|features)/})
