@@ -8,5 +8,6 @@ group :development do
     gem 'bundler'
     gem 'minitest'
     gem 'minitest-reporters'
+    gem 'rake'
     gem 'rubocop'
 end
