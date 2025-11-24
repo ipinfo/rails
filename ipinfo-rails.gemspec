@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
     s.homepage = 'https://ipinfo.io'
     s.license = 'Apache-2.0'
 
-    s.add_dependency 'IPinfo', '~> 2.3'
+    s.add_dependency 'IPinfo', '~> 2.4'
     s.add_dependency 'rack', '~> 2.0'
 
     s.add_development_dependency 'mocha', '~> 2.7'
