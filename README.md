@@ -21,30 +21,30 @@ The library also supports the Lite API, see the [Lite API section](#lite-api) fo
 
 1. Option 1) Add this line to your application's Gemfile:
 
-    ```ruby
-    gem 'ipinfo-rails'
-    ```
+   ```ruby
+   gem 'ipinfo-rails'
+   ```
 
-    Then execute:
+   Then execute:
 
-    ```bash
-    $ bundle install
-    ```
+   ```bash
+   $ bundle install
+   ```
 
-    Option 2) Install it yourself by running the following command:
+   Option 2) Install it yourself by running the following command:
 
-    ```bash
-    $ gem install ipinfo-rails
-    ```
+   ```bash
+   $ gem install ipinfo-rails
+   ```
 
 1. Open your `config/environment.rb` file or your preferred file in the `config/environment` directory. Add the following code to your chosen configuration file.
 
-    ```ruby
-    require 'ipinfo-rails'
-    config.middleware.use(IPinfoMiddleware, {token: "<your_token>"})
-    ```
+   ```ruby
+   require 'ipinfo-rails'
+   config.middleware.use(IPinfoMiddleware, {token: "<your_token>"})
+   ```
 
-    Note: if editing `config/environment.rb`, this needs to come before `Rails.application.initialize!` and with `Rails.application.` prepended to `config`, otherwise you'll get runtime errors.
+   Note: if editing `config/environment.rb`, this needs to come before `Rails.application.initialize!` and with `Rails.application.` prepended to `config`, otherwise you'll get runtime errors.
 
 1. Restart your development server.
 
@@ -120,7 +120,7 @@ request.env['ipinfo'].all ==
 
 ## Configuration
 
- In addition to the steps listed in the Installation section, it is possible to configure the library with more detail. The following arguments are allowed and are described in detail below.
+In addition to the steps listed in the Installation section, it is possible to configure the library with more detail. The following arguments are allowed and are described in detail below.
 
 ```ruby
 require 'ipinfo-rails/ip_selector/xforwarded_ip_selector'
@@ -231,10 +231,10 @@ config.middleware.use(IPinfoMiddleware, {:countries => <path_to_settings_file>})
 
 By default, `ipinfo-rails` filters out requests that have `bot` or `spider` in the user-agent. Instead of looking up IP address data for these requests, the `request.env['ipinfo']` attribute is set to `nil`. This is to prevent you from unnecessarily using up requests on non-user traffic.
 
-To set your own filtering rules, *thereby replacing the default filter*, you can set `:filter` to your own, custom callable function which satisfies the following rules:
+To set your own filtering rules, _thereby replacing the default filter_, you can set `:filter` to your own, custom callable function which satisfies the following rules:
 
 - Accepts one request.
-- Returns *True to filter out, False to allow lookup*
+- Returns _True to filter out, False to allow lookup_
 
 To use your own filter rules:
 
@@ -257,6 +257,45 @@ You can use it like so:
 ```ruby
 require 'ipinfo-rails'
 config.middleware.use(IPinfoLiteMiddleware, {token: "<your_token>"})
+```
+
+## Core API
+
+The library also supports the [Core API](https://ipinfo.io/developers/data-types#core-data), which provides city-level geolocation with nested geo and AS objects. Authentication with your token is required.
+
+```ruby
+require 'ipinfo-rails'
+config.middleware.use(IPinfoCoreMiddleware, {token: "<your_token>"})
+```
+
+## Plus API
+
+The library also supports the [Plus API](https://ipinfo.io/developers/data-types#plus-data), which provides enhanced data including mobile carrier info and privacy detection. Authentication with your token is required.
+
+```ruby
+require 'ipinfo-rails'
+config.middleware.use(IPinfoPlusMiddleware, {token: "<your_token>"})
+```
+
+## Residential Proxy API
+
+The library also supports the [Residential Proxy API](https://ipinfo.io/developers/residential-proxy-api), which allows you to check if an IP address is a residential proxy. Authentication with your token is required.
+
+```ruby
+require 'ipinfo-rails'
+config.middleware.use(IPinfoResproxyMiddleware, {token: "<your_token>"})
+```
+
+The residential proxy details will be available through `request.env['ipinfo_resproxy']`:
+
+```ruby
+resproxy = request.env['ipinfo_resproxy']
+if resproxy
+  resproxy.ip  # 175.107.211.204
+  resproxy.last_seen  # 2025-01-20
+  resproxy.percent_days_seen  # 0.85
+  resproxy.service  # Bright Data
+end
 ```
 
 ## Other Libraries
