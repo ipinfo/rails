@@ -6,7 +6,7 @@ gemspec
 
 group :development do
     gem 'bundler'
-    gem 'minitest'
+    gem 'minitest', '< 6'
     gem 'minitest-reporters'
     gem 'rake'
     gem 'rubocop'
