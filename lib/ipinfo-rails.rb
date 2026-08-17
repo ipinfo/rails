@@ -17,7 +17,7 @@ def is_bot(request)
 end
 
 class IPinfoMiddleware
-    def initialize(app, options = {})
+    def initialize(app, _args = [], **options )
         @app = app
         @token = options.fetch(:token, nil)
         @ipinfo = IPinfo.create(@token, options)
@@ -47,7 +47,7 @@ class IPinfoMiddleware
 end
 
 class IPinfoLiteMiddleware
-  def initialize(app, options = {})
+  def initialize(app, _args = [], **options )
     @app = app
     @token = options.fetch(:token, nil)
     @ipinfo = IPinfoLite.create(@token, options)
@@ -77,7 +77,7 @@ class IPinfoLiteMiddleware
 end
 
 class IPinfoCoreMiddleware
-  def initialize(app, options = {})
+  def initialize(app, _args = [], **options)
     @app = app
     @token = options.fetch(:token, nil)
     @ipinfo = IPinfoCore.create(@token, options)
@@ -107,7 +107,7 @@ class IPinfoCoreMiddleware
 end
 
 class IPinfoPlusMiddleware
-  def initialize(app, options = {})
+  def initialize(app, _args = [], **options)
     @app = app
     @token = options.fetch(:token, nil)
     @ipinfo = IPinfoPlus.create(@token, options)
@@ -137,7 +137,7 @@ class IPinfoPlusMiddleware
 end
 
 class IPinfoResproxyMiddleware
-  def initialize(app, options = {})
+  def initialize(app, _args = [], **options)
     @app = app
     @token = options.fetch(:token, nil)
     @ipinfo = IPinfo.create(@token, options)
